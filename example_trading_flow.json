@@ -1,0 +1,68 @@
+{
+  "name": "Bitcoin Price Monitor - Example",
+  "description": "Simple example: Monitor Bitcoin price on Binance Testnet",
+  "data": {
+    "nodes": [
+      {
+        "id": "binance-1",
+        "type": "BinanceConnector",
+        "position": {"x": 100, "y": 100},
+        "data": {
+          "node": {
+            "template": {
+              "api_key": {
+                "value": "your_testnet_api_key_here"
+              },
+              "api_secret": {
+                "value": "your_testnet_api_secret_here"
+              },
+              "market_type": {
+                "value": "spot"
+              },
+              "testnet": {
+                "value": true
+              },
+              "timeout": {
+                "value": 30
+              }
+            },
+            "display_name": "Binance Testnet Connection"
+          }
+        }
+      },
+      {
+        "id": "price-feed-1",
+        "type": "PriceFeed",
+        "position": {"x": 400, "y": 100},
+        "data": {
+          "node": {
+            "template": {
+              "symbol": {
+                "value": "BTCUSDT"
+              },
+              "interval": {
+                "value": "5m"
+              },
+              "limit": {
+                "value": 100
+              },
+              "include_orderbook": {
+                "value": true
+              }
+            },
+            "display_name": "Bitcoin Price Feed"
+          }
+        }
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge-1",
+        "source": "binance-1",
+        "sourceHandle": "connection",
+        "target": "price-feed-1",
+        "targetHandle": "exchange_connection"
+      }
+    ]
+  }
+}
